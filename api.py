@@ -3,6 +3,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
+
 import LyricTestApi
 
 
@@ -13,17 +14,7 @@ def get_lyrics(artist, title):
     artist = artist.replace("|", " ")
     title = title.replace("|", " ")
 
-    lyrics = LyricTestApi.get_song_name(title, artist)
-
-    response = {
-        'status': 'found',
-        'lyrics': [
-            "Jump back, what's that sound",
-            "Here she comes, full blast and top down",
-            "Hot shoe, burnin' down the avenue",
-            "Model citizen zero discipline"
-        ]
-    }
+    response = LyricTestApi.get_song_name(title, artist)
 
     return jsonify(response)
 

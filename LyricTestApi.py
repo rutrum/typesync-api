@@ -10,7 +10,7 @@ def all_metadata(artist, title):
     if song == None:
         return None
     else: 
-        return song.__dict__["_body"]
+        return song.__dict__
 
 
 def get_song_name(artist, title):
@@ -22,6 +22,8 @@ def get_song_name(artist, title):
     if song == None:
         return { 'status': 'not'} 
 
+    uuid = song.__dict__["_id"]
+    
     song = song.__dict__["_body"]
 
     # See if search gave too many results
@@ -40,6 +42,7 @@ def get_song_name(artist, title):
     
     return {
         'status': 'found',
+        'id': uuid,
         'title': found_title,
         'artist': found_artist,
         'lyrics': lyrics

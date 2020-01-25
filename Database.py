@@ -20,16 +20,52 @@ except mysql.connector.Error as err:
         print("Database does not exist")
     else:
         print(err)
-else:
-    select = cnx.cursor()
-    query = "INSERT INTO entries (username, songTitle, songArtist) VALUES (%s, %s, %s);"
-    val = ('HandRob', 'Evolution', 'SymphonyX')
-    select.execute(query, val)
+
+
+def add_new_score(name, geniusID, time, score, spotifyID):
+    insert = cnx.cursor()
+    query = "INSERT INTO entries (username, geniusID, milliseconds, time, spotifyID) VALUES (%s, %s, %s, %s, %s);"
+    val = (name, int(geniusID), int(time), int(score), spotifyID)
+    insert.execute(query, val)
     cnx.commit()
 
-    print(select.rowcount, "record inserted")
+    print(insert.rowcount, "record inserted")
+    #cnx.close()
+    get_song_leaderBoard(geniusID, 10)
+
+
+def get_song_leaderBoard(geniusID, listLength):
+    get = cnx.cursor(dictionary=True)
+    query = "SELECT * FROM entries WHERE geniusID = %s LIMIT %s;"
+    val = (int(geniusID),listLength)
+    get.execute(query, val)
+    
+    results = get.fetchall()
+
+    for x in results:
+        print(x)
+
+def alter_table():
+    alter = cnx.cursor()
+    query = "ALTER TABLE entries CHANGE songID geniusID INT;"
+    alter.execute(query)
+    cnx.commit()
+    cnx.close()
+
+def get_all():
+    get = cnx.cursor()
+    query = "SELECT * FROM entries;"
+    get.execute(query)
+
+    print(get.fetchall())
+    
+
+def main():
+    add_new_score('HandRob', '86916', '92393', '9344', '08dFHFTx6r67MTsYn5ilDR')
+    #get_all()
+    #alter_table()
     cnx.close()
 
 
-#def add_new_score(name, artist, title, time, score):
-    
+if __name__ == "__main__":
+    main()

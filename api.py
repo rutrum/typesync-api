@@ -9,12 +9,22 @@ def hello():
 
 @app.route('/lyrics/artist/<artist>/song/<song>')
 def get_lyrics(artist, song):
-    return artist + song
+
+    # Remove pipe delimeter
+    artist = artist.replace("|", " ")
+    song = song.replace("|", " ")
+
+    return "lyrics of " + song + " by " + artist
 
 
 @app.route('/score/artist/<artist>/song/<song>', methods=['GET'])
 def view_scores(artist, song):
-    return "scores from " + artist + song
+
+    # Remove pipe delimeter
+    artist = artist.replace("|", " ")
+    song = song.replace("|", " ")
+
+    return "scores from " + artist + " " + song
 
 
 @app.route('/score', methods=['POST'])

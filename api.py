@@ -11,7 +11,7 @@ def get_lyrics(artist, title):
     artist = artist.replace("|", " ")
     title = title.replace("|", " ")
 
-    lyrics = LyricTestApi.get_title_name(title, artist)
+    lyrics = LyricTestApi.get_song_name(title, artist)
 
     response = {
         'status': 'found',

@@ -1,13 +1,17 @@
 from flask import Flask, jsonify, request
 app = Flask(__name__)
 
+import LyricTestApi
 
-@app.route('/lyrics/artist/<artist>/song/<song>')
-def get_lyrics(artist, song):
+
+@app.route('/lyrics/artist/<artist>/title/<title>')
+def get_lyrics(artist, title):
 
     # Remove pipe delimeter
     artist = artist.replace("|", " ")
-    song = song.replace("|", " ")
+    title = title.replace("|", " ")
+
+    lyrics = LyricTestApi.get_title_name(title, artist)
 
     response = {
         'status': 'found',
@@ -22,12 +26,12 @@ def get_lyrics(artist, song):
     return jsonify(response)
 
 
-@app.route('/score/artist/<artist>/song/<song>', methods=['GET'])
-def view_scores(artist, song):
+@app.route('/score/artist/<artist>/title/<title>', methods=['GET'])
+def view_scores(artist, title):
 
     # Remove pipe delimeter
     artist = artist.replace("|", " ")
-    song = song.replace("|", " ")
+    title = title.replace("|", " ")
 
     response = {
         'status': 'found',
@@ -46,15 +50,15 @@ def view_scores(artist, song):
     return jsonify(response)
 
 
-@app.route('/score/artist/<artist>/song/<song>', methods=['POST'])
-def save_score(artist, song):
+@app.route('/score/artist/<artist>/title/<title>', methods=['POST'])
+def save_score(artist, title):
     data = request.get_json()
 
     # Remove pipe delimeter
     artist = artist.replace("|", " ")
-    song = song.replace("|", " ")
+    title = title.replace("|", " ")
 
-    return "Saving " + data['name'] + "'s score of " + str(data['score']) + " on " + song + " by " + artist
+    return "Saving " + data['name'] + "'s score of " + str(data['score']) + " on " + title + " by " + artist
 
 
 if __name__ == '__main__':

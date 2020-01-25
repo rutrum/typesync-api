@@ -29,6 +29,10 @@ def get_lyrics(artist, title):
 
     return jsonify(response)
 
+@app.route('/song/<id>')
+def get_song(id):
+    return LyricTestApi.get_song_by_id(id)
+
 
 @app.route('/score', methods=['POST'])
 def save_score():

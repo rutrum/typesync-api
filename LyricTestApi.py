@@ -30,28 +30,42 @@ def get_song_name(artist, title):
     if song["annotation_count"] > 50:
         return { 'status': 'not'} 
 
-    # See if song is instrumental
-    if song["instrumental"]:
-        return { 'status': 'instrumental' }
-
     found_title = song["title"]
     found_artist = song["primary_artist"]["name"]
-    lyrics = song["lyrics"]
+    album_art = song["header_image_url"]
 
-    lyrics = process_lyrics(lyrics)
+    # See if song is instrumental
+    if song["instrumental"]:
+        return { 
+            'status': 'instrumental',
+            'genius_id': uuid,
+            'title': found_title,
+            'artist': found_artist,
+            'album_art_url': album_art
+        }
+
+    lyrics = process_lyrics(song["lyrics"])
+
+    total_char = -1 # ignoring final newline
+    for lyric in lyrics:
+        total_char += len(lyric) + 1 # add for newline
     
     return {
         'status': 'found',
-        'id': uuid,
+        'genius_id': uuid,
         'title': found_title,
         'artist': found_artist,
-        'lyrics': lyrics
+        'lyrics': lyrics,
+        'album_art_url': album_art,
+        'total_char': total_char
     }
 
 
 # Splits lyrics by newlines and removes empty lines
 def process_lyrics(lyrics):
-    return list(filter(lambda x: x != "", lyrics.split("\n")))
+    no_empty = list(filter(lambda x: x != "", lyrics.split("\n")))
+    # todo: regex to remove all weird characters
+    return no_empty
 
 
 if __name__ == '__main__':

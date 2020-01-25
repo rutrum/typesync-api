@@ -15,7 +15,7 @@ def get_song_name(title, artist):
     song = song.__dict__["_body"]
 
     # See if search gave too many results
-    if song["annotation_count"] > 5:
+    if song["annotation_count"] > 50:
         return { 'status': 'not'} 
 
     # See if song is instrumental
@@ -37,7 +37,6 @@ def get_song_name(title, artist):
 
 
 def process_lyrics(lyrics):
-    return lyrics.split("\n")
     return list(filter(lambda x: x != "", lyrics.split("\n")))
 
 

@@ -5,9 +5,12 @@ genius.remove_section_headers = True
 
 def get_song_name(title, artist):
     song = genius.search_song(title, artist)
-    print(song.lyrics)
+    return song
+
+
+def main():
+    song = get_song_name('Rap God', 'Eminem')
     print(song.title)
-    print(song.artist)
 
 if __name__ == '__main__':
-    get_song_name('Rap God', 'Eminem')
+    main()

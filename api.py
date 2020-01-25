@@ -5,6 +5,7 @@ CORS(app)
 
 
 import LyricTestApi
+import Database
 
 
 @app.route('/all/artist/<artist>/title/<title>')
@@ -30,6 +31,8 @@ def view_scores(artist, title):
     # Remove pipe delimeter
     artist = artist.replace("|", " ")
     title = title.replace("|", " ")
+
+
 
     response = {
         'status': 'found',

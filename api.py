@@ -4,6 +4,11 @@ app = Flask(__name__)
 import LyricTestApi
 
 
+@app.route('/all/artist/<artist>/title/<title>')
+def get_all_metadata(artist, title):
+    return jsonify(LyricTestApi.all_metadata(artist, title))
+
+
 @app.route('/lyrics/artist/<artist>/title/<title>')
 def get_lyrics(artist, title):
 
@@ -11,7 +16,7 @@ def get_lyrics(artist, title):
     artist = artist.replace("|", " ")
     title = title.replace("|", " ")
 
-    response = LyricTestApi.get_song_name(title, artist)
+    response = LyricTestApi.get_song_name(artist, title)
 
     return jsonify(response)
 

@@ -1,9 +1,19 @@
 import lyricsgenius
 
+
 genius = lyricsgenius.Genius('rk7Bf0CVL9lOWaEaxZnrOTIiAp2qXwMaKfJfWd3XPoLGGxAgJWz1zl1dwwgoCz17')
 genius.remove_section_headers = True
 
-def get_song_name(title, artist):
+
+def all_metadata(artist, title):
+    song = genius.search_song(title, artist)
+    if song == None:
+        return None
+    else: 
+        return song.__dict__["_body"]
+
+
+def get_song_name(artist, title):
 
     # Use genius api to find song and convert to dictionary for indexing
     song = genius.search_song(title, artist)
@@ -36,13 +46,10 @@ def get_song_name(title, artist):
     }
 
 
+# Splits lyrics by newlines and removes empty lines
 def process_lyrics(lyrics):
     return list(filter(lambda x: x != "", lyrics.split("\n")))
 
-
-def main():
-    song = get_song_name('Rap God', 'Eminem')
-    print(song)
 
 if __name__ == '__main__':
     main()

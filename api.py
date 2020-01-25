@@ -54,8 +54,11 @@ def view_scores(artist, song):
 @app.route('/score/artist/<artist>/song/<song>', methods=['POST'])
 def save_score(artist, song):
     data = request.get_json()
-    # return artist + song + data['name']
-    # db.save_score(data['name'], data['score'])
+
+    # Remove pipe delimeter
+    artist = artist.replace("|", " ")
+    song = song.replace("|", " ")
+
     return "Saving " + data['name'] + "'s score of " + str(data['score']) + " on " + song + " by " + artist
 
 

@@ -1,8 +1,6 @@
 import mysql.connector
 from mysql.connector import errorcode
 
-print('ljksdfkj')
-
 pass_file = open("root_pass.txt")
 root_pass = pass_file.read().strip()
 
@@ -31,16 +29,18 @@ def add_new_score(name, geniusID, time, score, spotifyID):
 
     print(insert.rowcount, "record inserted")
     #cnx.close()
-    get_song_leaderBoard(geniusID, 10)
+    #get_song_leaderBoard(geniusID, 10)
 
 
 def get_song_leaderBoard(geniusID, listLength):
     get = cnx.cursor(dictionary=True)
-    query = "SELECT * FROM entries WHERE geniusID = %s LIMIT %s;"
-    val = (int(geniusID),listLength)
+    query = "SELECT * FROM entries WHERE geniusID = %s ORDER BY time ASC LIMIT %s;"
+    val = (int(geniusID), int(listLength))
     get.execute(query, val)
     
     results = get.fetchall()
+
+    return {'results': results}
 
     for x in results:
         print(x)

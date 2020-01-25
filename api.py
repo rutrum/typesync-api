@@ -5,7 +5,7 @@ CORS(app)
 
 
 import LyricTestApi
-import Database
+import Database as db
 
 
 @app.route('/all/artist/<artist>/title/<title>')
@@ -30,61 +30,25 @@ def get_lyrics(artist, title):
     return jsonify(response)
 
 
-# @app.route('/score/artist/<artist>/title/<title>', methods=['GET'])
-# def view_scores(artist, title):
-
-#     # Remove pipe delimeter
-#     artist = artist.replace("|", " ")
-#     title = title.replace("|", " ")
-
-
-
-#     response = {
-#         'status': 'found',
-#         'scores': [
-#             {
-#                 'name': 'brad',
-#                 'score': '55'
-#             },
-#             {
-#                 'name': 'benjamin',
-#                 'score': '42'
-#             }
-#         ]
-#     }
-
-#     return jsonify(response)
-
-
-# @app.route('/score/artist/<artist>/title/<title>', methods=['POST'])
-# def save_score(artist, title):
-#     data = request.get_json()
-
-#     # Remove pipe delimeter
-#     artist = artist.replace("|", " ")
-#     title = title.replace("|", " ")
-
-#     return "Saving " + data['name'] + "'s score of " + str(data['score']) + " on " + title + " by " + artist
-
-
 @app.route('/score', methods=['POST'])
 def save_score():
     data = request.get_json()
 
     genius_id = data["genius_id"]
     name = data["name"]
-    time = data["time"]
+    user_time = data["time"]
 
-    # db.save(genius_id, name, time)
+    import time
+    millis = int(round(time.time() * 1000)) # math because time.time() is bad
 
-    return
+    db.add_new_score(name, genius_id, millis, user_time, 0)
+
+    return { 'status': 'success' }
 
 
-@app.route('/leaderboards/<genius_id>')
-def leaderboards(genius_id):
-    x = 1
-    # select * from entries where genius_id = `genius_id` order by time ASC limit 10
-    return
+@app.route('/leaderboards/<genius_id>/limit/<limit>')
+def leaderboards(genius_id, limit):
+    return db.get_song_leaderBoard(genius_id, limit)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)

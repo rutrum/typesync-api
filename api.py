@@ -2,11 +2,6 @@ from flask import Flask, jsonify, request
 app = Flask(__name__)
 
 
-@app.route('/')
-def hello():
-    return "Hello World!"
-
-
 @app.route('/lyrics/artist/<artist>/song/<song>')
 def get_lyrics(artist, song):
 
@@ -60,7 +55,6 @@ def save_score(artist, song):
     song = song.replace("|", " ")
 
     return "Saving " + data['name'] + "'s score of " + str(data['score']) + " on " + song + " by " + artist
-
 
 
 if __name__ == '__main__':

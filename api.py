@@ -28,7 +28,7 @@ def get_lyrics(artist, title):
 
     response = LyricTestApi.get_song_name(artist, title)
     for index, value in enumerate(response['lyrics']):
-        response['lyrics'][index]= re.sub("[^A-Za-z0-9().,\s']+",'' , value)
+        response['lyrics'][index]= re.sub("[^A-Za-z0-9().,\s'!?]+",'' , value)
 
     return jsonify(response)
 

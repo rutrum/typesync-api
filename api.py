@@ -3,6 +3,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 import re
+import sys, unicodedata, string
 
 import LyricTestApi
 import Database as db
@@ -26,8 +27,10 @@ def get_lyrics(artist, title):
     title = title.replace("|", " ")
 
     response = LyricTestApi.get_song_name(artist, title)
+
     for index, value in enumerate(response['lyrics']):
-        response['lyrics'][index]= re.sub("[^A-Za-z0-9().,\s'!?]+",'' , value)
+        temp = (response['lyrics'][index].encode('ascii', 'ignore')).decode("utf-8")
+        response['lyrics'][index]= re.sub('[^A-Za-z0-9().,\s'"'"'!?]+','' , temp)
 
     return jsonify(response)
 
@@ -57,4 +60,4 @@ def leaderboards(genius_id, limit):
     return db.get_song_leaderBoard(genius_id, limit)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080)
+    app.run(host='127.0.0.1', port=5000)

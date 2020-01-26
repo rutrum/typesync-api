@@ -57,11 +57,10 @@ def get_all():
     query = "SELECT * FROM entries;"
     get.execute(query)
 
-    print(get.fetchall())
-    
+
 
 def main():
-    add_new_score('HandRob', '86916', '92393', '9344', '08dFHFTx6r67MTsYn5ilDR')
+    #add_new_score('HandRob', '86916', '92393', '9344', '08dFHFTx6r67MTsYn5ilDR')
     #get_all()
     #alter_table()
     cnx.close()

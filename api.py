@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
-
+import re
 
 import LyricTestApi
 import Database as db
@@ -15,6 +15,7 @@ def get_all_metadata(artist, title):
     artist = artist.replace("|", " ")
     title = title.replace("|", " ")
 
+    print(LyricTestApi.all_metadata(artist, title))
     return jsonify(LyricTestApi.all_metadata(artist, title))
 
 
@@ -26,6 +27,8 @@ def get_lyrics(artist, title):
     title = title.replace("|", " ")
 
     response = LyricTestApi.get_song_name(artist, title)
+    for index, value in enumerate(response['lyrics']):
+        response['lyrics'][index]= re.sub("[^A-Za-z0-9().,\s']+",'' , value)
 
     return jsonify(response)
 

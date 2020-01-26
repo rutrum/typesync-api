@@ -73,8 +73,8 @@ def get_song_name(artist, title):
     song = song.__dict__["_body"]
 
     # See if search gave too many results
-    if song["annotation_count"] > 50:
-        return { 'status': 'not'} 
+    #if song["annotation_count"] > 50:
+    #    return { 'status': 'not'} 
 
     found_title = song["title"]
     found_artist = song["primary_artist"]["name"]

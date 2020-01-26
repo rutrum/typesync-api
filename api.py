@@ -15,7 +15,6 @@ def get_all_metadata(artist, title):
     artist = artist.replace("|", " ")
     title = title.replace("|", " ")
 
-    print(LyricTestApi.all_metadata(artist, title))
     return jsonify(LyricTestApi.all_metadata(artist, title))
 
 
@@ -27,7 +26,6 @@ def get_lyrics(artist, title):
     title = title.replace("|", " ")
 
     response = LyricTestApi.get_song_name(artist, title)
-    print(response)
     for index, value in enumerate(response['lyrics']):
         response['lyrics'][index]= re.sub("[^A-Za-z0-9().,\s'!?]+",'' , value)
 

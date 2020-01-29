@@ -39,10 +39,10 @@ def get_song_leaderBoard(geniusID, listLength):
     get = cnx.cursor(dictionary=True)
     print(geniusID)
     print(listLength)
-    query = "SELECT * FROM entries WHERE geniusID = 366908;"
+    query = "SELECT * FROM entries WHERE geniusID = %s ORDER BY time ASC LIMIT %s;"
     val = (int(geniusID), int(listLength))
     print(cnx.is_connected())
-    get.execute(query)
+    get.execute(query, val)
     print(get)
 
     results = get.fetchall()

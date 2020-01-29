@@ -3715,3 +3715,34 @@ ValueError: invalid literal for int() with base 10: 'undefined'
 159.242.0.112 - - [26/Jan/2020 22:19:00] "OPTIONS /leaderboards/366908/limit/10 HTTP/1.1" 200 -
 159.242.0.112 - - [26/Jan/2020 22:19:00] "GET /leaderboards/366908/limit/10 HTTP/1.1" 200 -
 209.17.97.10 - - [26/Jan/2020 22:29:18] "GET / HTTP/1.0" 404 -
+ * Serving Flask app "api" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+ * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
+75.48.53.200 - - [29/Jan/2020 02:59:14] "OPTIONS /lyrics/artist/Napalm%7CDeath/title/You%7CSuffer HTTP/1.1" 200 -
+75.48.53.200 - - [29/Jan/2020 02:59:16] "GET /lyrics/artist/Napalm%7CDeath/title/You%7CSuffer HTTP/1.1" 200 -
+75.48.53.200 - - [29/Jan/2020 02:59:16] "OPTIONS /leaderboards/366908/limit/10 HTTP/1.1" 200 -
+75.48.53.200 - - [29/Jan/2020 02:59:16] "GET /leaderboards/366908/limit/10 HTTP/1.1" 200 -
+75.48.53.200 - - [29/Jan/2020 02:59:18] "GET /lyrics/artist/Napalm%7CDeath/title/You%7CSuffer HTTP/1.1" 200 -
+75.48.53.200 - - [29/Jan/2020 02:59:18] "GET /leaderboards/366908/limit/10 HTTP/1.1" 200 -
+75.48.53.200 - - [29/Jan/2020 02:59:18] "GET /leaderboards/366908/limit/10 HTTP/1.1" 200 -
+75.48.53.200 - - [29/Jan/2020 02:59:30] "OPTIONS /score HTTP/1.1" 200 -
+75.48.53.200 - - [29/Jan/2020 02:59:30] "POST /score HTTP/1.1" 200 -
+75.48.53.200 - - [29/Jan/2020 02:59:41] "OPTIONS /lyrics/artist/Napalm%7CDeath/title/You%7CSuffer HTTP/1.1" 200 -
+75.48.53.200 - - [29/Jan/2020 02:59:43] "GET /lyrics/artist/Napalm%7CDeath/title/You%7CSuffer HTTP/1.1" 200 -
+75.48.53.200 - - [29/Jan/2020 02:59:43] "OPTIONS /leaderboards/366908/limit/10 HTTP/1.1" 200 -
+75.48.53.200 - - [29/Jan/2020 02:59:43] "GET /leaderboards/366908/limit/10 HTTP/1.1" 200 -
+75.48.53.200 - - [29/Jan/2020 03:00:01] "OPTIONS /score HTTP/1.1" 200 -
+75.48.53.200 - - [29/Jan/2020 03:00:01] "POST /score HTTP/1.1" 200 -
+75.48.53.200 - - [29/Jan/2020 03:00:01] "OPTIONS /leaderboards/366908/limit/10 HTTP/1.1" 200 -
+75.48.53.200 - - [29/Jan/2020 03:00:01] "GET /leaderboards/366908/limit/10 HTTP/1.1" 200 -
+75.48.53.200 - - [29/Jan/2020 03:02:44] "OPTIONS /lyrics/artist/napalm%7Cdeath/title/you%7Csuffer HTTP/1.1" 200 -
+75.48.53.200 - - [29/Jan/2020 03:02:46] "GET /lyrics/artist/napalm%7Cdeath/title/you%7Csuffer HTTP/1.1" 200 -
+75.48.53.200 - - [29/Jan/2020 03:02:46] "OPTIONS /leaderboards/366908/limit/10 HTTP/1.1" 200 -
+75.48.53.200 - - [29/Jan/2020 03:02:46] "GET /leaderboards/366908/limit/10 HTTP/1.1" 200 -
+75.48.53.200 - - [29/Jan/2020 03:03:00] "OPTIONS /score HTTP/1.1" 200 -
+75.48.53.200 - - [29/Jan/2020 03:03:00] "POST /score HTTP/1.1" 200 -
+75.48.53.200 - - [29/Jan/2020 03:03:00] "OPTIONS /leaderboards/366908/limit/10 HTTP/1.1" 200 -
+75.48.53.200 - - [29/Jan/2020 03:03:00] "GET /leaderboards/366908/limit/10 HTTP/1.1" 200 -

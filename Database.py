@@ -36,7 +36,7 @@ def add_new_score(name, geniusID, time, score, spotifyID):
 
 
 def get_song_leaderBoard(geniusID, listLength):
-    get = MySQLCursor(cnx)
+    get = cnx.cursor(dictionary=True)
     print(geniusID)
     print(listLength)
     query = "SELECT * FROM entries WHERE geniusID = 366908;"

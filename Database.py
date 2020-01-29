@@ -1,17 +1,20 @@
 import mysql.connector
 from mysql.connector import errorcode
+from mysql.connector.cursor import MySQLCursor
+
 
 pass_file = open("root_pass.txt")
 root_pass = pass_file.read().strip()
 
-# try:
+#try:
 cnx = mysql.connector.connect(
-    host='35.193.10.101',
-    database='typingtest',
-    user='root',
-    password=root_pass
-)
-# except mysql.connector.Error as err:
+        host='35.193.10.101',
+        database='typingtest',
+        user='root',
+        connection_timeout=28800,
+        password=root_pass
+    )
+#except mysql.connector.Error as err:
 #     if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
 #         print("Something is wrong with your user name or password")
 #     elif err.errno == errorcode.ER_BAD_DB_ERROR:
@@ -33,13 +36,16 @@ def add_new_score(name, geniusID, time, score, spotifyID):
 
 
 def get_song_leaderBoard(geniusID, listLength):
-    get = cnx.cursor(dictionary=True)
-    query = "SELECT * FROM entries WHERE geniusID = %s ORDER BY time ASC LIMIT %s;"
+    get = MySQLCursor(cnx)
+    print(geniusID)
+    print(listLength)
+    query = "SELECT * FROM entries WHERE geniusID = 366908;"
     val = (int(geniusID), int(listLength))
-    get.execute(query, val)
-    
-    results = get.fetchall()
+    print(cnx.is_connected())
+    get.execute(query)
+    print(get)
 
+    results = get.fetchall()
     return {'results': results}
 
     for x in results:

@@ -4,9 +4,12 @@ app = Flask(__name__)
 CORS(app)
 import re
 import sys, unicodedata, string
+import cacheout
 
-import LyricTestApi
-import Database as db
+recents = cacheout.FIFOCache()
+
+import genius 
+import database as db
 
 
 @app.route('/all/artist/<artist>/title/<title>')
@@ -16,7 +19,7 @@ def get_all_metadata(artist, title):
     artist = artist.replace("|", " ")
     title = title.replace("|", " ")
 
-    return jsonify(LyricTestApi.all_metadata(artist, title))
+    return jsonify(genius.all_metadata(artist, title))
 
 
 @app.route('/lyrics/artist/<artist>/title/<title>')
@@ -26,17 +29,21 @@ def get_lyrics(artist, title):
     artist = artist.replace("|", " ")
     title = title.replace("|", " ")
 
-    response = LyricTestApi.get_song_name(artist, title)
+    cached = recents.get((artist, title))
 
-    for index, value in enumerate(response['lyrics']):
-        temp = (response['lyrics'][index].encode('ascii', 'ignore')).decode("utf-8")
-        response['lyrics'][index]= re.sub('[^A-Za-z0-9().,\s'"'"'!?]+','' , temp)
+    if cached:
+        # in cache
+        return cached
+    else:
+        # not in cache, call API
+        response = jsonify(genius.get_song_name(artist, title))
+        recents.add((artist, title), response, ttl=60*60)
+        return response
 
-    return jsonify(response)
 
 @app.route('/song/<id>')
 def get_song(id):
-    return LyricTestApi.get_song_by_id(id)
+    return genius.get_song_by_id(id)
 
 
 @app.route('/score', methods=['POST'])
@@ -58,6 +65,7 @@ def save_score():
 @app.route('/leaderboards/<genius_id>/limit/<limit>')
 def leaderboards(genius_id, limit):
     return db.get_song_leaderBoard(genius_id, limit)
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)

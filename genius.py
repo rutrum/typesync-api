@@ -2,6 +2,9 @@ import lyricsgenius
 import re
 import string
 
+# Local files for cleaning lyrics and determining stats
+import clean
+import stats
 
 genius = lyricsgenius.Genius('rk7Bf0CVL9lOWaEaxZnrOTIiAp2qXwMaKfJfWd3XPoLGGxAgJWz1zl1dwwgoCz17')
 genius.remove_section_headers = True
@@ -120,6 +123,10 @@ def stats(lyrics):
     }
 
     for lyric in lyrics:
+        # For end of line
+        stats['total'] += 1
+        stats['white'] += 1
+
         for char in lyric:
             stats['total'] += 1
             if char.isspace(): 
@@ -137,7 +144,13 @@ def stats(lyrics):
             if char.isupper(): 
                 stats['upper'] += 1
 
+    stats['total'] -= 1
+    stats['white'] -= 1
+
     return stats
+
+# def determine_difficulty(stats):
+
 
 if __name__ == '__main__':
     main()

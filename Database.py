@@ -6,15 +6,8 @@ from mysql.connector.cursor import MySQLCursor
 pass_file = open("root_pass.txt")
 root_pass = pass_file.read().strip()
 
-#try:
-cnx = mysql.connector.connect(
-        host='35.193.10.101',
-        database='typingtest',
-        user='root',
-        connection_timeout=28800,
-        password=root_pass
-    )
-#except mysql.connector.Error as err:
+# try:
+# except mysql.connector.Error as err:
 #     if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
 #         print("Something is wrong with your user name or password")
 #     elif err.errno == errorcode.ER_BAD_DB_ERROR:
@@ -22,8 +15,18 @@ cnx = mysql.connector.connect(
 #     else:
 #         print(err)
 
+def connect_to_db():
+    cnx = mysql.connector.connect(
+            host='35.193.10.101',
+            database='typingtest',
+            user='root',
+            password=root_pass
+    )
+    return cnx
+
 
 def add_new_score(name, geniusID, time, score, spotifyID):
+    cnx = conect_to_db()
     insert = cnx.cursor()
     query = "INSERT INTO entries (username, geniusID, milliseconds, time, spotifyID) VALUES (%s, %s, %s, %s, %s);"
     val = (name, int(geniusID), int(time), int(score), spotifyID)
@@ -31,11 +34,11 @@ def add_new_score(name, geniusID, time, score, spotifyID):
     cnx.commit()
 
     print(insert.rowcount, "record inserted")
-    #cnx.close()
-    #get_song_leaderBoard(geniusID, 10)
+    cnx.close()
 
 
 def get_song_leaderBoard(geniusID, listLength):
+    cnx = connect_to_db()
     get = cnx.cursor(dictionary=True)
     print(geniusID)
     print(listLength)
@@ -43,13 +46,12 @@ def get_song_leaderBoard(geniusID, listLength):
     val = (int(geniusID), int(listLength))
     print(cnx.is_connected())
     get.execute(query, val)
-    print(get)
-
     results = get.fetchall()
+    print(results)
+    cnx.close()
+
     return {'results': results}
 
-    for x in results:
-        print(x)
 
 def alter_table():
     alter = cnx.cursor()

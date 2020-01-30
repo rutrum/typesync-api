@@ -80,16 +80,6 @@ def get_song_name(artist, title):
     found_artist = song["primary_artist"]["name"]
     album_art = song["header_image_url"]
 
-    # See if song is instrumental
-    if song["instrumental"]:
-        return { 
-            'status': 'instrumental',
-            'genius_id': uuid,
-            'title': found_title,
-            'artist': found_artist,
-            'album_art_url': album_art
-        }
-
     lyrics = process_lyrics(song["lyrics"])
 
     total_char = -1 # ignoring final newline

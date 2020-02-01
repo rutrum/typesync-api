@@ -37,7 +37,7 @@ def get_lyrics(artist, title):
     else:
         # not in cache, call API
         response = jsonify(genius.get_song_name(artist, title))
-        recents.add((artist, title), response, ttl=60*60)
+        recents.add((artist, title), response, ttl=60*60*24)
         return response
 
 

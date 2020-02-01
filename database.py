@@ -26,7 +26,7 @@ def connect_to_db():
 
 
 def add_new_score(name, geniusID, time, score, spotifyID):
-    cnx = conect_to_db()
+    cnx = connect_to_db()
     insert = cnx.cursor()
     query = "INSERT INTO entries (username, geniusID, milliseconds, time, spotifyID) VALUES (%s, %s, %s, %s, %s);"
     val = (name, int(geniusID), int(time), int(score), spotifyID)

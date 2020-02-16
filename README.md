@@ -15,3 +15,9 @@ Searches for previous scores of the song `song` by `artist`.  Returns an object 
 ### `POST /scores/artist/<artist>/song/<song>`
 
 Allows the user to update scores into the database.  Expects a json object with the key `name`, `score`.  Returns an object with the key `status` that is either `success` or `failure`.  If `failure`, there is a `message` key with a description of the error.
+
+## Docker
+```
+docker build -t typesync/api .
+docker run -d -p 8080:8080 --network host typesync/api
+```

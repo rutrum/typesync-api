@@ -7,4 +7,4 @@ RUN pip3 install -r /srv/api/requirements.txt
 
 EXPOSE 8080
 
-CMD ["python3", "/srv/api/api.py"]
+CMD ["/bin/bash", "/srv/api/docker_init.sh"]

@@ -1,5 +1,7 @@
 flask
+flask_cors
 lyricsgenius
 jsonify
 request
 cacheout
+mysql-connector-python-rf

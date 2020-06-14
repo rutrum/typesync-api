@@ -9,18 +9,19 @@ root_pass = pass_file.read().strip()
 
 def connect_to_db():
     return mysql.connector.connect(
-            host='35.193.10.101',
-            database='typingtest',
+            host='127.0.0.1',
+            database='typesync',
             user='root',
-            password=root_pass
+            password=root_pass,
+            auth_plugin='mysql_native_password'
     )
 
 
-def add_new_score(name, geniusID, time, score, spotifyID):
+def add_new_score(name, geniusID, time, score, mode):
     cnx = connect_to_db()
     insert = cnx.cursor()
-    query = "INSERT INTO entries (username, geniusID, milliseconds, time, spotifyID) VALUES (%s, %s, %s, %s, %s);"
-    val = (name, int(geniusID), int(time), int(score), spotifyID)
+    query = "INSERT INTO entries (username, geniusID, milliseconds, time, mode) VALUES (%s, %s, %s, %s, %s);"
+    val = (name, int(geniusID), int(time), int(score), mode)
     insert.execute(query, val)
     cnx.commit()
 

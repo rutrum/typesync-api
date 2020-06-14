@@ -1,6 +1,13 @@
 import re
+import unicodedata
+# ERROR!  SEE RUSH: 2112
+# ERROR!  SEE RUSH: 2112
+# ERROR!  SEE RUSH: 2112
+# ERROR!  SEE RUSH: 2112
+# ERROR!  SEE RUSH: 2112
 
 def standard_lyrics(l):
+    l = remove_unicode(l)
     l = filter_characters(l)
     l = fix_whitespace(l)
     return split(l)
@@ -10,6 +17,9 @@ def simple_lyrics(l):
     l = l.lower()
     l = fix_whitespace(l)
     return split(l)
+
+def remove_unicode(lyrics):
+    return unicodedata.normalize('NFKD', lyrics).encode('ascii', 'ignore').decode('utf-8')
 
 def fix_whitespace(lyrics):
     # Remove double spaces
@@ -31,4 +41,8 @@ def remove_punctuation(lyrics):
 def split(lyrics):
     # Try to remove this map function sometime and
     # write better regex thx
-    return list(map(lambda x: x.strip(), filter(lambda x: x != "", lyrics.splitlines())))
+
+    return list(filter(
+        lambda x: x != "",
+        map(lambda x: x.strip(), lyrics.splitlines())
+    ))

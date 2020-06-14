@@ -53,11 +53,12 @@ def save_score():
     genius_id = data["genius_id"]
     name = data["name"]
     user_time = data["time"]
+    mode = data["mode"]
 
     import time
     millis = int(round(time.time() * 1000)) # math because time.time() is bad
 
-    db.add_new_score(name, genius_id, millis, user_time, 0)
+    db.add_new_score(name, genius_id, millis, user_time, mode)
 
     return { 'status': 'success' }
 

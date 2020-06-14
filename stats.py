@@ -54,8 +54,9 @@ def determine_difficulty(stats):
     ratings = ['Novice', 'Apprentice', 'Adept', 'Expert', 'Master']
     # thresh = [i * 1300 for i in range(5)]
 
-    the_rating = ratings[min(math.floor(score/1300), 4)]
+    index = min(math.floor(score/1300), 4)
     return {
-        "level": the_rating,
+        "level": ratings[index],
+        "index": index,
         "raw_level": score
     }

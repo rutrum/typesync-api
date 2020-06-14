@@ -54,24 +54,29 @@ def get_song_name(artist, title):
     found_artist = song["primary_artist"]["name"]
     album_art = song["header_image_url"]
 
-    std = clean.standard_lyrics(song["lyrics"])
+    std_lyrics = clean.standard_lyrics(song["lyrics"])
+    std_stat = stats.get(std_lyrics)
+    std_diff = stats.determine_difficulty(std_stat)
 
-    # Remove sometime (because stats.total)
-    total_char = -1 # ignoring final newline
-    for lyric in std:
-        total_char += len(lyric) + 1 # add for newline
+    simple_lyrics = clean.simple_lyrics(song["lyrics"])
+    simple_stat = stats.get(simple_lyrics)
+    simple_diff = stats.determine_difficulty(simple_stat)
     
-    stat = stats.get(std)
-    diff = stats.determine_difficulty(stat)
 
     return {
         'status': 'found',
         'genius_id': uuid,
         'title': found_title,
         'artist': found_artist,
-        'lyrics': std,
+        'standard': {
+            'lyrics': std_lyrics,
+            'stats': std_stat,
+            'diff': std_diff
+        },
+        'simple': {
+            'lyrics': simple_lyrics,
+            'stats': simple_stat,
+            'diff': simple_diff
+        },
         'album_art_url': album_art,
-        'total_char': total_char,
-        'stats': stat,
-        'diff': diff
     }

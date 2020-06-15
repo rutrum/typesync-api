@@ -63,9 +63,9 @@ def save_score():
     return { 'status': 'success' }
 
 
-@app.route('/leaderboards/<genius_id>/limit/<limit>')
-def leaderboards(genius_id, limit):
-    return db.get_song_leaderBoard(genius_id, limit)
+@app.route('/leaderboards/<genius_id>/mode/<mode>/limit/<limit>')
+def leaderboards(genius_id, mode, limit):
+    return db.get_song_leaderBoard(genius_id, mode, limit)
 
 
 if __name__ == '__main__':

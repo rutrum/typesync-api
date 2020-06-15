@@ -29,11 +29,11 @@ def add_new_score(name, geniusID, time, score, mode):
     cnx.close()
 
 
-def get_song_leaderBoard(geniusID, listLength):
+def get_song_leaderBoard(geniusID, mode, listLength):
     cnx = connect_to_db()
     get = cnx.cursor(dictionary=True)
-    query = "SELECT * FROM entries WHERE geniusID = %s ORDER BY time ASC LIMIT %s;"
-    val = (int(geniusID), int(listLength))
+    query = "SELECT * FROM entries WHERE geniusID = %s AND mode = %s ORDER BY time ASC LIMIT %s;"
+    val = (int(geniusID), mode, int(listLength))
     get.execute(query, val)
     results = get.fetchall()
     cnx.close()

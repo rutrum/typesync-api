@@ -13,6 +13,7 @@ def standard_lyrics(l):
     return split(l)
 
 def simple_lyrics(l):
+    l = remove_unicode(l)
     l = remove_punctuation(l)
     l = l.lower()
     l = fix_whitespace(l)

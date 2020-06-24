@@ -36,10 +36,11 @@ def get_lyrics(artist, title):
         return cached
     else:
         # not in cache, call API
-        response = jsonify(genius.get_song_name(artist, title))
+        response = genius.get_song_name(artist, title)
+        json = jsonify(response)
         if response["status"] == "found":
-            recents.add((artist, title), response, ttl=60*60*24)
-        return response
+            recents.add((artist, title), json, ttl=60*60*24)
+        return json 
 
 
 @app.route('/song/<id>')

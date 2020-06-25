@@ -4,4 +4,4 @@ lyricsgenius
 jsonify
 request
 cacheout
-mysql-connector-python-rf
+mysql-connector-python

@@ -1,19 +1,18 @@
 import mysql.connector
 from mysql.connector import errorcode
 from mysql.connector.cursor import MySQLCursor
-
-
-pass_file = open("root_pass.txt")
-root_pass = pass_file.read().strip()
+import json
 
 
 def connect_to_db():
+    creds = json.load(open("creds.json"))
+    print(creds)
     return mysql.connector.connect(
-            host='127.0.0.1',
-            database='typesync',
-            user='root',
-            password=root_pass,
-            auth_plugin='mysql_native_password'
+        host = creds["host"],
+        database = creds["database"],
+        user = creds["user"],
+        password = creds["password"],
+        auth_plugin = creds["auth_plugin"]
     )
 
 
